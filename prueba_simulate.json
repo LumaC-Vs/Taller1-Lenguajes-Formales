@@ -1,0 +1,14 @@
+{
+    "dfaStates": ["0137", "247", "8", "58", "68"],
+    "transitions": [
+        {"from": "0137", "symbol": "a", "to": "247"},
+        {"from": "0137", "symbol": "b", "to": "8"},
+        {"from": "247", "symbol": "a", "to": "247"},
+        {"from": "247", "symbol": "b", "to": "58"},
+        {"from": "8", "symbol": "b", "to": "8"},
+        {"from": "58", "symbol": "b", "to": "68"},
+        {"from": "68", "symbol": "b", "to": "8"}
+    ],
+    "acceptingStates": ["8", "58", "68"],
+    "input": "abbb"
+}
