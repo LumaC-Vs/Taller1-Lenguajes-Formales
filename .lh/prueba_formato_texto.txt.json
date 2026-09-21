@@ -1,0 +1,26 @@
+{
+    "sourceFile": "prueba_formato_texto.txt",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 2,
+            "patches": [
+                {
+                    "date": 1789877325464,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1789878596013,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,7 @@\n-1\r\n-6\r\n-a b\r\n-1 4 5\r\n-0 1 2\r\n-1 3 4\r\n-2 4 3\r\n-3 5 5\r\n-4 5 5\r\n-5 5 5\n\\ No newline at end of file\n+    a  b\r\n+→ 0  1  2\r\n+← 1  3  4\r\n+  2  4  3\r\n+  3  5  5\r\n+← 4  5  5\r\n+← 5  5  5\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1789879158758,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,7 +1,10 @@\n-    a  b\r\n-→ 0  1  2\r\n-← 1  3  4\r\n-  2  4  3\r\n-  3  5  5\r\n-← 4  5  5\r\n-← 5  5  5\n\\ No newline at end of file\n+1\r\n+6\r\n+a b\r\n+1 4 5\r\n+0 1 2\r\n+1 3 4\r\n+2 4 3\r\n+3 5 5\r\n+4 5 5\r\n+5 5 5\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1789877325464,
+            "name": "Commit-0",
+            "content": "1\r\n6\r\na b\r\n1 4 5\r\n0 1 2\r\n1 3 4\r\n2 4 3\r\n3 5 5\r\n4 5 5\r\n5 5 5"
+        }
+    ]
+}

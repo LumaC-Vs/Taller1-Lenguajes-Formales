@@ -1,0 +1,30 @@
+{
+    "sourceFile": "app.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 3,
+            "patches": [
+                {
+                    "date": 1789871816467,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1789871833990,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,21 +1,25 @@\n from flask import Flask, request, jsonify\r\n-from gateway import convert_nfa_to_dfa, simulate_dfa\r\n+from gateway import convert_nfa_to_dfa, simulate_dfa, get_equivalent_states\r\n \r\n-\r\n app = Flask(__name__)\r\n \r\n @app.route(\"/convert\", methods=[\"POST\"])\r\n def convert():\r\n     data = request.get_json()\r\n     resultado = convert_nfa_to_dfa(data)\r\n     return jsonify(resultado)\r\n-@app.route(\"/simulate\", methods =[\"POST\"])\r\n \r\n+@app.route(\"/simulate\", methods=[\"POST\"])\r\n def simulate():\r\n     data = request.get_json()\r\n     resultado = simulate_dfa(data)\r\n     return jsonify(resultado)\r\n \r\n+@app.route(\"/equivalent-states\", methods=[\"POST\"])\r\n\\ No newline at end of file\n+def equivalent_states():\r\n+    data = request.get_json()\r\n+    resultado = get_equivalent_states(data)\r\n+    return jsonify(resultado)\r\n+\r\n if __name__ == \"__main__\":\r\n-    app.run(debug=True, port=5000)\r\n-    \n+    app.run(debug=True, port=5000)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1789876846344,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n from flask import Flask, request, jsonify\r\n-from gateway import convert_nfa_to_dfa, simulate_dfa, get_equivalent_states\r\n+from gateway import convert_nfa_to_dfa, simulate_dfa, get_equivalent_states, procesar_casos_texto\r\n \r\n app = Flask(__name__)\r\n \r\n @app.route(\"/convert\", methods=[\"POST\"])\r\n@@ -21,5 +21,11 @@\n     resultado = get_equivalent_states(data)\r\n     return jsonify(resultado)\r\n \r\n if __name__ == \"__main__\":\r\n-    app.run(debug=True, port=5000)\n\\ No newline at end of file\n+    app.run(debug=True, port=5000)\r\n+\r\n+@app.route(\"/equivalent-states/batch\", methods=[\"POST\"])\r\n+def equivalent_states_batch():\r\n+    texto = request.get_data(as_text=True)\r\n+    resultado = procesar_casos_texto(texto)\r\n+    return jsonify(resultado)\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1789878199426,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,12 +20,12 @@\n     data = request.get_json()\r\n     resultado = get_equivalent_states(data)\r\n     return jsonify(resultado)\r\n \r\n-if __name__ == \"__main__\":\r\n-    app.run(debug=True, port=5000)\r\n-\r\n @app.route(\"/equivalent-states/batch\", methods=[\"POST\"])\r\n def equivalent_states_batch():\r\n     texto = request.get_data(as_text=True)\r\n     resultado = procesar_casos_texto(texto)\r\n-    return jsonify(resultado)\n\\ No newline at end of file\n+    return jsonify(resultado)\r\n+\r\n+if __name__ == \"__main__\":\r\n+    app.run(debug=True, port=5000)\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1789871816467,
+            "name": "Commit-0",
+            "content": "from flask import Flask, request, jsonify\r\nfrom gateway import convert_nfa_to_dfa, simulate_dfa\r\n\r\n\r\napp = Flask(__name__)\r\n\r\n@app.route(\"/convert\", methods=[\"POST\"])\r\ndef convert():\r\n    data = request.get_json()\r\n    resultado = convert_nfa_to_dfa(data)\r\n    return jsonify(resultado)\r\n@app.route(\"/simulate\", methods =[\"POST\"])\r\n\r\ndef simulate():\r\n    data = request.get_json()\r\n    resultado = simulate_dfa(data)\r\n    return jsonify(resultado)\r\n\r\nif __name__ == \"__main__\":\r\n    app.run(debug=True, port=5000)\r\n    "
+        }
+    ]
+}

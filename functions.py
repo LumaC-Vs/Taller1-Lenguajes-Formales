@@ -112,7 +112,157 @@ def run_dfa(sim_data):
     resultado_texto = "aceptada" if aceptada else "rechazada"
     print(f"Fin de la cadena. Estado final: {estado_actual} -> {resultado_texto}")
     return {"path": path, "accepted": aceptada}
-    
+
+def estados_equivalentes(dfa_data):
+    estados = dfa_data["states"]
+    alfabeto = dfa_data["alphabet"]
+    aceptacion = set(dfa_data["accepting"])
+    delta = construir_delta(dfa_data["transitions"])
+
+    pares = []
+    for i in range(len(estados)):
+        for j in range(i + 1, len(estados)):
+            pares.append((estados[i], estados[j]))
+
+    marcados = set()
+    for (p, q) in pares:
+        p_acepta = p in aceptacion
+        q_acepta = q in aceptacion
+        if p_acepta != q_acepta:
+            marcados.add((p, q))
+
+    hubo_cambio = True
+    while hubo_cambio:
+        hubo_cambio = False
+        for (p, q) in pares:
+            if (p, q) in marcados:
+                continue
+            for a in alfabeto:
+                p_destino = delta[(p, a)]
+                q_destino = delta[(q, a)]
+                if p_destino == q_destino:
+                    continue
+                par_destino = (min(p_destino, q_destino), max(p_destino, q_destino))
+                if par_destino in marcados:
+                    marcados.add((p, q))
+                    hubo_cambio = True
+                    break
+
+    equivalentes = [par for par in pares if par not in marcados]
+    equivalentes.sort()
+
+    return equivalentes
+
+#Función que agrupa los estados equivalentes
+def agrupar_equivalentes(estados, pares_equivalentes):
+    padre = {estado: estado for estado in estados}
+
+    def encontrar(x):
+        while padre[x] != x:
+            x = padre[x]
+        return x
+
+    def unir(x, y):
+        raiz_x = encontrar(x)
+        raiz_y = encontrar(y)
+        if raiz_x != raiz_y:
+            nueva_raiz = min(raiz_x, raiz_y)
+            padre[raiz_x] = nueva_raiz
+            padre[raiz_y] = nueva_raiz
+
+    for (p, q) in pares_equivalentes:
+        unir(p, q)
+
+    grupos = {}
+    for estado in estados:
+        grupos[estado] = encontrar(estado)
+
+    return grupos
+
+#
+def construir_automata_minimizado(dfa_data):
+    estados = dfa_data["states"]
+    alfabeto = dfa_data["alphabet"]
+    inicial = dfa_data["initial"]
+    aceptacion = set(dfa_data["accepting"])
+    delta = construir_delta(dfa_data["transitions"])
+
+    pares_equivalentes = estados_equivalentes(dfa_data)
+    grupos = agrupar_equivalentes(estados, pares_equivalentes)
+
+    nuevos_estados = sorted(set(grupos.values()))
+    nuevo_inicial = grupos[inicial]
+    nueva_aceptacion = sorted({grupos[e] for e in aceptacion})
+
+    nuevas_transiciones = []
+    for estado in nuevos_estados:
+        for simbolo in alfabeto:
+            destino_original = delta[(estado, simbolo)]
+            destino_nuevo = grupos[destino_original]
+            nuevas_transiciones.append({
+                "from": estado,
+                "symbol": simbolo,
+                "to": destino_nuevo
+            })
+
+    return {
+        "states": nuevos_estados,
+        "alphabet": alfabeto,
+        "initial": nuevo_inicial,
+        "accepting": nueva_aceptacion,
+        "transitions": nuevas_transiciones
+    }
+
+def minimizar_dfa(dfa_data):
+    equivalentes = estados_equivalentes(dfa_data)
+    equivalentes.sort()
+    pares_texto = [f"{p}-{q}" for (p, q) in equivalentes]
+
+    automata_minimizado = construir_automata_minimizado(dfa_data)
+
+    return {
+        "equivalentStatePairs": pares_texto,
+        "totalPairs": len(pares_texto),
+        "minimizedAutomaton": automata_minimizado
+    }
+def parsear_formato_texto(texto):
+    texto = texto.replace("\r", "")
+    lineas = [linea for linea in texto.split("\n") if linea.strip() != ""]
+    idx = 0
+    num_casos = int(lineas[idx]); idx += 1
+
+    casos = []
+    for _ in range(num_casos):
+        n = int(lineas[idx]); idx += 1
+        alfabeto = lineas[idx].split(); idx += 1
+        aceptacion = list(map(int, lineas[idx].split())); idx += 1
+
+        transitions = []
+        for estado in range(n):
+            fila = list(map(int, lineas[idx].split())); idx += 1
+            valores = fila[1:]
+            for pos in range(len(alfabeto)):
+                simbolo = alfabeto[pos]
+                destino = valores[pos]
+                transitions.append({"from": estado, "symbol": simbolo, "to": destino})
+
+        dfa = {
+            "states": list(range(n)),
+            "alphabet": alfabeto,
+            "initial": 0,
+            "accepting": aceptacion,
+            "transitions": transitions
+        }
+        casos.append(dfa)
+
+    return casos
+
+def construir_delta(transitions):
+    delta = {}
+    for t in transitions:
+        clave = (t["from"], t["symbol"])
+        delta[clave] = t["to"]
+    return delta
 
 if __name__ == "__main__":
     nfa_ejemplo = {
@@ -130,6 +280,31 @@ if __name__ == "__main__":
     print(type(nfa_ejemplo))
     resultado = subset_construction(nfa_ejemplo)
     print(resultado)
+    transiciones_ejemplo = [
+        {"from": 0, "symbol": "a", "to": 1},
+        {"from": 0, "symbol": "b", "to": 2},
+        {"from": 1, "symbol": "a", "to": 3},
+    ]
+    delta_prueba = construir_delta(transiciones_ejemplo)
+    print(delta_prueba)
+    print(delta_prueba[(0, "a")])
+
+    dfa_minimizacion_2 = {
+        "states": [0, 1, 2, 3, 4, 5],
+        "alphabet": ["a"],
+        "initial": 0,
+        "accepting": [1, 4],
+        "transitions": [
+            {"from": 0, "symbol": "a", "to": 1},
+            {"from": 1, "symbol": "a", "to": 2},
+            {"from": 2, "symbol": "a", "to": 3},
+            {"from": 3, "symbol": "a", "to": 4},
+            {"from": 4, "symbol": "a", "to": 5},
+            {"from": 5, "symbol": "a", "to": 0},
+        ]
+    }
+    resultado_equiv_2 = estados_equivalentes(dfa_minimizacion_2)
+    print(resultado_equiv_2)
 
     dfa_de_prueba = {
             "dfaStates": ["0137", "247", "8", "58", "68"],
@@ -148,3 +323,10 @@ if __name__ == "__main__":
     
     resultado_simulacion = run_dfa(dfa_de_prueba)
     print(resultado_simulacion)
+
+def construir_delta(transitions):
+    delta = {}
+    for t in transitions:
+        clave = (t["from"], t["symbol"])
+        delta[clave] = t["to"]
+    return delta

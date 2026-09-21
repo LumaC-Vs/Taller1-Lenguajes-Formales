@@ -1,0 +1,18 @@
+{
+    "sourceFile": "prueba_minimizacion.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1789871887059,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1789871887059,
+            "name": "Commit-0",
+            "content": "{\r\n  \"states\": [0, 1, 2, 3, 4, 5],\r\n  \"alphabet\": [\"a\", \"b\"],\r\n  \"initial\": 0,\r\n  \"accepting\": [1, 2, 5],\r\n  \"transitions\": [\r\n    {\"from\": 0, \"symbol\": \"a\", \"to\": 1},\r\n    {\"from\": 0, \"symbol\": \"b\", \"to\": 2},\r\n    {\"from\": 1, \"symbol\": \"a\", \"to\": 3},\r\n    {\"from\": 1, \"symbol\": \"b\", \"to\": 4},\r\n    {\"from\": 2, \"symbol\": \"a\", \"to\": 4},\r\n    {\"from\": 2, \"symbol\": \"b\", \"to\": 3},\r\n    {\"from\": 3, \"symbol\": \"a\", \"to\": 5},\r\n    {\"from\": 3, \"symbol\": \"b\", \"to\": 5},\r\n    {\"from\": 4, \"symbol\": \"a\", \"to\": 5},\r\n    {\"from\": 4, \"symbol\": \"b\", \"to\": 5},\r\n    {\"from\": 5, \"symbol\": \"a\", \"to\": 5},\r\n    {\"from\": 5, \"symbol\": \"b\", \"to\": 5}\r\n  ]\r\n}"
+        }
+    ]
+}

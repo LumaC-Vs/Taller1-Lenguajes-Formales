@@ -1,0 +1,38 @@
+{
+    "sourceFile": "gateway.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1789871813125,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1789876800434,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-from functions import subset_construction, run_dfa, minimizar_dfa\r\n+from functions import subset_construction, run_dfa, minimizar_dfa, estados_equivalentes, parsear_formato_texto\r\n \r\n def convert_nfa_to_dfa(nfa_data):\r\n     try:\r\n         return subset_construction(nfa_data)\r\n@@ -15,5 +15,17 @@\n def get_equivalent_states(dfa_data):\r\n     try:\r\n         return minimizar_dfa(dfa_data)\r\n     except Exception as e:\r\n+        return {\"error\": str(e)}\r\n+\r\n+def procesar_casos_texto(texto):\r\n+    try:\r\n+        casos = parsear_formato_texto(texto)\r\n+        resultados = []\r\n+        for dfa in casos:\r\n+            pares = estados_equivalentes(dfa)\r\n+            pares_texto = [f\"{p}-{q}\" for (p, q) in pares]\r\n+            resultados.append(pares_texto)\r\n+        return {\"results\": resultados}\r\n+    except Exception as e:\r\n         return {\"error\": str(e)}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1789877304383,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-from functions import subset_construction, run_dfa, minimizar_dfa, estados_equivalentes, parsear_formato_texto\r\n+from functions import subset_construction, run_dfa, minimizar_dfa, estados_equivalentes, parsear_formato_texto, procesar_casos_texto\r\n \r\n def convert_nfa_to_dfa(nfa_data):\r\n     try:\r\n         return subset_construction(nfa_data)\r\n"
+                },
+                {
+                    "date": 1789877383835,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-from functions import subset_construction, run_dfa, minimizar_dfa, estados_equivalentes, parsear_formato_texto, procesar_casos_texto\r\n+from functions import subset_construction, run_dfa, minimizar_dfa, estados_equivalentes, parsear_formato_texto, procesar_formato_texto\r\n \r\n def convert_nfa_to_dfa(nfa_data):\r\n     try:\r\n         return subset_construction(nfa_data)\r\n"
+                },
+                {
+                    "date": 1789877421792,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-from functions import subset_construction, run_dfa, minimizar_dfa, estados_equivalentes, parsear_formato_texto, procesar_formato_texto\r\n+from functions import subset_construction, run_dfa, minimizar_dfa, estados_equivalentes, parsear_formato_texto, procesar_casos_texto\r\n \r\n def convert_nfa_to_dfa(nfa_data):\r\n     try:\r\n         return subset_construction(nfa_data)\r\n"
+                },
+                {
+                    "date": 1789877706066,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-from functions import subset_construction, run_dfa, minimizar_dfa, estados_equivalentes, parsear_formato_texto, procesar_casos_texto\r\n+from functions import subset_construction, run_dfa, minimizar_dfa, parsear_formato_texto, estados_equivalentes\r\n \r\n def convert_nfa_to_dfa(nfa_data):\r\n     try:\r\n         return subset_construction(nfa_data)\r\n"
+                }
+            ],
+            "date": 1789871813125,
+            "name": "Commit-0",
+            "content": "from functions import subset_construction, run_dfa, minimizar_dfa\r\n\r\ndef convert_nfa_to_dfa(nfa_data):\r\n    try:\r\n        return subset_construction(nfa_data)\r\n    except Exception as e:\r\n        return {\"error\": str(e)}\r\n\r\ndef simulate_dfa(sim_data):\r\n    try:\r\n        return run_dfa(sim_data)\r\n    except Exception as e:\r\n        return {\"error\": str(e)}\r\n\r\ndef get_equivalent_states(dfa_data):\r\n    try:\r\n        return minimizar_dfa(dfa_data)\r\n    except Exception as e:\r\n        return {\"error\": str(e)}"
+        }
+    ]
+}

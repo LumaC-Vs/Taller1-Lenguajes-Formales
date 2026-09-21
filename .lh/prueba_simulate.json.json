@@ -1,0 +1,18 @@
+{
+    "sourceFile": "prueba_simulate.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1789877349163,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1789877349163,
+            "name": "Commit-0",
+            "content": "{\r\n    \"dfaStates\": [\"0137\", \"247\", \"8\", \"58\", \"68\"],\r\n    \"transitions\": [\r\n        {\"from\": \"0137\", \"symbol\": \"a\", \"to\": \"247\"},\r\n        {\"from\": \"0137\", \"symbol\": \"b\", \"to\": \"8\"},\r\n        {\"from\": \"247\", \"symbol\": \"a\", \"to\": \"247\"},\r\n        {\"from\": \"247\", \"symbol\": \"b\", \"to\": \"58\"},\r\n        {\"from\": \"8\", \"symbol\": \"b\", \"to\": \"8\"},\r\n        {\"from\": \"58\", \"symbol\": \"b\", \"to\": \"68\"},\r\n        {\"from\": \"68\", \"symbol\": \"b\", \"to\": \"8\"}\r\n    ],\r\n    \"acceptingStates\": [\"8\", \"58\", \"68\"],\r\n    \"input\": \"abbb\"\r\n}"
+        }
+    ]
+}
