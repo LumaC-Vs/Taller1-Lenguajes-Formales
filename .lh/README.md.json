@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 2,
+            "activePatchIndex": 3,
             "patches": [
                 {
                     "date": 1790015436247,
@@ -16,6 +16,10 @@
                 {
                     "date": 1790022202316,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,8 +1,8 @@\n # NFA to DFA Converter & DFA Minimization\r\n \r\n-- Student's Full Name: [TU NOMBRE COMPLETO AQUÍ]\r\n-- Student's Class Number: [TU NÚMERO DE CLASE AQUÍ]\r\n+- Luisa María Cuervo Prado\r\n+- Sheryl Astrid Murillo Duque\r\n \r\n ## Environment\r\n - Operating System: Windows 11\r\n - Programming Language: Python 3\r\n"
+                },
+                {
+                    "date": 1790023372362,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -139,5 +139,5 @@\n - `functions.py` gained new functions: `construir_delta` (builds a fast lookup table for the transition function), `estados_equivalentes` (implements the table-filling algorithm), `agrupar_equivalentes` (a Union-Find structure that groups equivalent states together), `construir_automata_minimizado` (builds the fully collapsed DFA from those groups), `minimizar_dfa` (formats the JSON response) and `parsear_formato_texto` (parses the plain-text input format).\r\n - `gateway.py` gained two new functions (`get_equivalent_states` and `procesar_casos_texto`) following the same try/except error-handling pattern used for the Assignment 1 endpoints.\r\n - `app.py` gained two new routes (`/equivalent-states` and `/equivalent-states/batch`), following the same Controller pattern (receive request, delegate to Gateway, return JSON response) used by `/convert` and `/simulate`.\r\n \r\n-As an additional feature, the response of `/equivalent-states` also includes the fully minimized automaton, obtained by grouping equivalent states with a Union-Find structure and rebuilding the transition table from the resulting groups.\r\n+As an additional feature, the response of `/equivalent-states` also includes the fully minimized automaton, obtained by grouping equivalent states with a Union-Find structure and rebuilding the transition table from the resulting groups.\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1790015436247,
